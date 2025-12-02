@@ -18,7 +18,7 @@ Welcome!!
 <h1>All Conversion History</h1>
 <ul>
     {% for conversion in history %}
-    <li>{{ conversion.amount }} {{ conversion.targetUnit }} to {{ conversion.convertUnit }}: {{ conversion.result }}</li>
+    <li class="{{ conversion.category }}"> {{ conversion.category }} <b>{{ conversion.amount }}</b> {{ conversion.targetUnit }} to {{ conversion.convertUnit }}: <b>{{ conversion.result }}</b> on {{ conversion.created_at }}</li>
     {% empty %}
     <li>No conversion history available.</li>
     {% endfor %}

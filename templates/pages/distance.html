@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Distance 
+Distance
 {% endblock title %}
 
 {% load static %}
@@ -11,23 +11,25 @@ Distance
 
 {% block content %}
 
-<h1>This is the page to make distance conversions</h1>
+<h1>This is the page to make volume conversions</h1>
 <section class="app-container">
-<div class="conversion-form"
+<div class="conversion-form">
 <h3>Convert Distance</h3>
 
-<fieldset>
+<fieldset style="background-color: rgb(166, 255, 166);">
 <form method="POST" action="{% url 'distance' %}">
 {% csrf_token %}
 {{ form.as_p }}
 <button type="submit">Convert</button><label>
 </form>
 </fieldset>
-</div>
-{% if converted_value %}
+{% if converted_value is not None %}
 <h2>Conversion Result:</h2>
-<p>The converted value is: <strong>{{ result }}</strong></p>
+<p>The converted value is: <strong>{{ converted_value }}</strong></p>
+{% else %}
+<p>No value to convert</p>
 {% endif %}
+</div>
 <div id="history">
 <h1>Distance Conversion History</h1>
 <ul>

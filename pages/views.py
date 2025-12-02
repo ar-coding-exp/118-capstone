@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import TempConversionForm
 from .forms import WeightConversionForm
+from .forms import VolumeConversionForm
+from .forms import DistanceConversionForm
 from .models import ConversionHistory
 
 # Create your views here.
@@ -69,14 +71,67 @@ def perform_weight_conversion(amount,targetUnit,convertUnit):
 
     return converted_value
 
+def perform_distance_conversion(amount,targetUnit,convertUnit):
+    if targetUnit == convertUnit:
+        return amount
+    
+    converted_value = None
+    if targetUnit == 'mile':
+        if convertUnit == 'kilometer':
+            converted_value = amount * 1.609
+        elif convertUnit == 'yard':
+            converted_value = amount * 1760
+        elif convertUnit == 'feet':
+            converted_value = amount * 5280
+        elif convertUnit == 'meter':
+            converted_value = amount * 1609.34
+    if targetUnit == 'kilometer':
+        if convertUnit == 'mile':
+            converted_value = amount / 1.609
+        elif convertUnit == 'yard':
+            converted_value = amount * 1094
+        elif convertUnit == 'feet':
+            converted_value = amount * 3280.84
+        elif convertUnit == 'meter':
+            converted_value = amount * 1000
+    if targetUnit == 'yard':
+        if convertUnit == 'kilometer':
+            converted_value = amount / 1094
+        elif convertUnit == 'mile':
+            converted_value = amount / 1760
+        elif convertUnit == 'feet':
+            converted_value = amount * 3280.84
+        elif convertUnit == 'meter':
+            converted_value = amount * 0.9144
+    if targetUnit == 'feet':
+        if convertUnit == 'kilometer':
+            converted_value = amount / 3280.84
+        elif convertUnit == 'yard':
+            converted_value = amount / 3
+        elif convertUnit == 'mile':
+            converted_value = amount / 5280
+        elif convertUnit == 'meter':
+            converted_value = amount * 0.3048
+    if targetUnit == 'meter':
+        if convertUnit == 'kilometer':
+            converted_value = amount / 1000
+        elif convertUnit == 'yard':
+            converted_value = amount / 0.9144
+        elif convertUnit == 'mile':
+            converted_value = amount / 1609.34
+        elif convertUnit == 'feet':
+            converted_value = amount / 0.3048
+
+    return converted_value
+
 def perform_volume_conversion(amount,targetUnit,convertUnit):
     if targetUnit == convertUnit:
         return amount
 
     converted_value = None
-    if targetUnit == 'gallon' & convertUnit == 'liter':
+    if targetUnit == 'gallon' and convertUnit == 'liter':
         converted_value = amount * 3.785
-    elif targetUnit == 'liter' & convertUnit == 'gallon':
+    if targetUnit == 'liter' and convertUnit == 'gallon':
         converted_value = amount / 3.785
 
     return converted_value
@@ -176,7 +231,7 @@ def volume_view(request):
             print(f"Amount: {amount}, Target Unit: {targetUnit}, Convert Unit: {convertUnit}, Category: {category}")
 
             #implement logic here
-            converted_value = perform_weight_conversion(amount, targetUnit, convertUnit)
+            converted_value = perform_volume_conversion(amount, targetUnit, convertUnit)
 
             #create instance
             conversion_record = ConversionHistory(
@@ -193,5 +248,43 @@ def volume_view(request):
         form = VolumeConversionForm()
 
     form.fields['category'].initial = category
-    history = ConversionHistory.objects.filter(category='weight') #get conversion history
+    history = ConversionHistory.objects.filter(category='volume') #get conversion history
     return render(request, 'pages/volume.html', {'form': form, 'history': history, 'converted_value':converted_value})
+
+def distance_view(request):
+    form = VolumeConversionForm()
+    converted_value = None
+    category = "distance"
+
+    if request.method == 'POST':
+        form = DistanceConversionForm(request.POST)
+        if form.is_valid():
+            print("form is valid") #check if code works
+            #process conversion here
+            amount = form.cleaned_data['amount']
+            targetUnit = form.cleaned_data['targetUnit']
+            convertUnit = form.cleaned_data['convertUnit']
+            #category = form.cleaned_data['category']
+
+            print(f"Amount: {amount}, Target Unit: {targetUnit}, Convert Unit: {convertUnit}, Category: {category}")
+
+            #implement logic here
+            converted_value = perform_distance_conversion(amount, targetUnit, convertUnit)
+
+            #create instance
+            conversion_record = ConversionHistory(
+                amount = amount,
+                targetUnit = targetUnit,
+                convertUnit = convertUnit,
+                category = category,
+                result = converted_value 
+            )
+            conversion_record.save()
+
+    else:
+        print(form.errors) # log error
+        form = DistanceConversionForm()
+
+    form.fields['category'].initial = category
+    history = ConversionHistory.objects.filter(category='distance') #get conversion history
+    return render(request, 'pages/distance.html', {'form': form, 'history': history, 'converted_value':converted_value})

@@ -50,6 +50,22 @@ ul {
     border: 2px solid black;
 }
 
+.temperature {
+    background-color: #8aa5f6;
+}
+
+.weight {
+    background-color: lightpink;
+}
+
+.volume {
+    background-color: lightgoldenrodyellow;
+}
+
+.distance {
+    background-color: lightgreen;
+}
+
 @media (min-width: 990px) {
 
 
