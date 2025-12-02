@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Welcome!! 
+{% endblock title %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
+{% endblock css %}
+
+{% block content %}
+
+<h1>Welcome to the Measurement Conversion Center</h1>
+
+<h2>A history of all your conversions will appaear below</h2>
+<section class="app-container">
+<div id="history">
+<h1>All Conversion History</h1>
+<ul>
+    {% for conversion in history %}
+    <li>{{ conversion.amount }} {{ conversion.targetUnit }} to {{ conversion.convertUnit }}: {{ conversion.result }}</li>
+    {% empty %}
+    <li>No conversion history available.</li>
+    {% endfor %}
+</ul>
+</div>
+</section>
+{% endblock content %} 

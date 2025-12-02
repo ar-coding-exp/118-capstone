@@ -1,0 +1,12 @@
+<input type="hidden" id="category" name="category" value="temperature">
+<label for="targetUnit">Select Unit:</label>     <select id="targetUnit" name="targetUnit" required>
+    <option value="fahrenheit">Fahrenheit</option>
+    <option value="celcius">Celcius</option>
+    <option value="Kelvin">Kelvin</option>
+</select>
+<div class="infopair"><label for="amount">Amount</label> <input type="text" id="amount" name="amount" required></div>
+<label for="convertUnit">Conversion Unit</label> <select id="convertUnit" name="convertUnit" required>
+    <option value="fahrenheit">Fahrenheit</option>
+    <option value="celsius">Celsius</option>
+    <option value="kelvin">Kelvin</option>
+</select>

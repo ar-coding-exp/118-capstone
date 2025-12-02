@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Distance 
+{% endblock title %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
+{% endblock css %}
+
+{% block content %}
+
+<h1>This is the page to make distance conversions</h1>
+<section class="app-container">
+<div class="conversion-form"
+<h3>Convert Distance</h3>
+
+<fieldset>
+<form method="POST" action="{% url 'distance' %}">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Convert</button><label>
+</form>
+</fieldset>
+</div>
+{% if converted_value %}
+<h2>Conversion Result:</h2>
+<p>The converted value is: <strong>{{ result }}</strong></p>
+{% endif %}
+<div id="history">
+<h1>Distance Conversion History</h1>
+<ul>
+    {% for conversion in history %}
+    <li>{{ conversion.amount }} {{ conversion.targetUnit }} to {{ conversion.convertUnit }}: {{ conversion.result }}</li>
+    {% empty %}
+    <li>No conversion history available.</li>
+    {% endfor %}
+</ul>
+</div>
+</section>
+{% endblock content %} 

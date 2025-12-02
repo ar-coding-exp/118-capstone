@@ -1,0 +1,97 @@
+body {
+    background-color: #C19A6A;
+}
+
+h1 {
+    color: darkcyan;
+}
+
+h2 {
+    color: darkcyan;
+
+}
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .infopair {
+        display:flex;
+        flex-direction: row;
+    }
+
+    button {
+        margin-top: 10px; 
+    }
+
+    .app-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+}
+
+.conversion-form {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    border: 2px solid black;
+    background-color: #8aa5f6
+}
+
+ul { 
+    list-style-type: none;
+}
+
+#history{
+    background-color: antiquewhite;
+    border: 2px solid black;
+}
+
+@media (min-width: 990px) {
+
+
+body {
+    background-color: #C19A6A;
+}
+
+h1 {
+    color: darkcyan;
+    text-align: center;
+}
+
+h2 {
+    color: darkcyan;
+    text-align: center;
+}
+
+.top-img {
+    display: block;
+    margin: 12px auto;
+    max-width: 90%
+}
+
+.container {
+    background-color: #dbca9a;
+}
+
+
+.app-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+}
+
+@media (max-width: 990px){
+
+    nav {
+        text-align:center; 
+    }
+    .navbar-brand {
+        text-align: center;
+    }
+}

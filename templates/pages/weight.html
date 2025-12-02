@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Weight 
+{% endblock title %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
+{% endblock css %}
+
+{% block content %}
+
+<h1>This is the page to make weight conversions</h1>
+<section class="app-container">
+<div class="conversion-form">
+<h3>Convert Weight</h3>
+
+<fieldset style="background-color: lightpink;">
+<form method="POST" action="{% url 'weight' %}">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Convert</button><label>
+</form>
+</fieldset>
+{% if converted_value is not None %}
+<h2>Conversion Result:</h2>
+<p>The converted value is: <strong>{{ converted_value }}</strong></p>
+{% else %}
+<p>No value to convert</p>
+{% endif %}
+</div>
+<div id="history">
+<h1>Weight Conversion History</h1>
+<ul>
+    {% for conversion in history %}
+    <li>{{ conversion.amount }} {{ conversion.targetUnit }} to {{ conversion.convertUnit }}: {{ conversion.result }}</li>
+    {% empty %}
+    <li>No conversion history available.</li>
+    {% endfor %}
+</ul>
+</div>
+</section>
+{% endblock content %} 

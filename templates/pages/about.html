@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Welcome!! 
+{% endblock title %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
+{% endblock css %}
+
+{% block content %}
+
+<h1>Welcome to my page</h1>
+<h3>About me</h3>
+<h1>My name would go here</h1>
+
+{% endblock content %} 
