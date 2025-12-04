@@ -11,3 +11,4 @@ urlpatterns = [
     path('volume/', views.volume_view, name="volume"),
     path('weight/', views.weight_view, name="weight"),
 ]
+

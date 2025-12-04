@@ -18,10 +18,17 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'weight' %}">Weight</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
+                <div class="login-button">
+        {% if user.is_authenticated %}
+          <button class="btn btn-outline-dark">Welcome: {{user.username}}</button>
+          <a class="btn btn-outline-danger" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a>
+          <p> or </p>
+          <a class="btn btn-outline-warning" href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </nav>
